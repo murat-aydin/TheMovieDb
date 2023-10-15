@@ -1,3 +1,10 @@
 <resources>
-
+    <string name="popularity_movies">Popular</string>
+    <string name="revenue_movies">Revenue</string>
+    <string name="primary_release_date_movies">Release Date</string>
+    <string name="vote_average_movies">Top Rated</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
+    <string name="no_internet">No Internet Connection</string>
+    <string name="general_error">General Error</string>
 </resources>
