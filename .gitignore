@@ -22,3 +22,21 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+/.gradle/buildOutputCleanup/cache.properties
+/.gradle/8.2/checksums/checksums.lock
+/.gradle/8.2/dependencies-accessors/dependencies-accessors.lock
+/.gradle/8.2/dependencies-accessors/executionHistory.bin
+/.gradle/8.2/executionHistory/executionHistory.bin
+/.gradle/8.2/executionHistory/executionHistory.lock
+/.gradle/8.2/fileHashes/fileHashes.bin
+/.gradle/8.2/fileHashes/fileHashes.lock
+/.gradle/8.2/dependencies-accessors/gc.properties
+/.gradle/8.2/gc.properties
+/.gradle/vcs-1/gc.properties
+/.gradle/8.2/fileChanges/last-build.bin
+/.gradle/8.2/dependencies-accessors/724188d52f6e72e89a0919090ef1b06d8372c419/sources/org/gradle/accessors/dm/LibrariesForLibs.java
+/.gradle/8.2/dependencies-accessors/724188d52f6e72e89a0919090ef1b06d8372c419/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java
+/.gradle/buildOutputCleanup/outputFiles.bin
+/.gradle/8.2/fileHashes/resourceHashesCache.bin
+/.idea/workspace.xml
