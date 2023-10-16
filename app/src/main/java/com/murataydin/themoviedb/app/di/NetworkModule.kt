@@ -3,6 +3,7 @@ package com.murataydin.themoviedb.app.di
 import android.app.Application
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.murataydin.themoviedb.BuildConfig
+import com.murataydin.themoviedb.data.remote.TheMovieDBService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,6 +58,12 @@ object NetworkModule {
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTheMovieDBService(retrofit: Retrofit): TheMovieDBService {
+        return retrofit.create(TheMovieDBService::class.java)
     }
 
 }
