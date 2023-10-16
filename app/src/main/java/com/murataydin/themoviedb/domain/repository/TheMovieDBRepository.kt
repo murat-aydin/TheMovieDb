@@ -8,4 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface TheMovieDBRepository {
     fun getDiscoverMovies(page: Int, sortBy: String): Flow<Resource<MovieResponse>>
+    fun getMovieDetail(movieId: Int): Flow<Resource<MovieDetailResponse>>
+    fun getMovieImageDetail(movieId: Int): Flow<Resource<MovieImageResponse>>
 }
