@@ -6,15 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.murataydin.themoviedb.BuildConfig
 import com.murataydin.themoviedb.data.remote.model.MovieResponse
 import com.murataydin.themoviedb.data.remote.model.Result
-import com.murataydin.themoviedb.BuildConfig
 import com.murataydin.themoviedb.databinding.HomeMovieItemBinding
-
-data class MovieAdapterModel(
-    val title: String,
-    val results: MovieResponse?
-)
 
 class MovieAdapter(
     private val onMovieListener: OnMovieListener
@@ -71,3 +66,7 @@ class MovieAdapter(
         fun onClickMovie(movieId: Int)
     }
 }
+data class MovieAdapterModel(
+    val title: String,
+    val results: MovieResponse?
+)

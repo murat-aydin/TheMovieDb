@@ -44,6 +44,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                                 findNavController().navigate(HomeFragmentDirections.homeToDetail(it.movieId))
                             }
                         }
+
                         is HomeEffect.ShowError -> {
                             handleError(it.throwable)
                         }
@@ -60,45 +61,47 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect {
                     setLoadingState(it.isLoading)
-                    if (!it.isLoading) {
-                        if (it.allMovies.isNotEmpty()) {
-                            it.allMovies.forEach { (key, value) ->
-                                when (key) {
-                                    AllMoviesUseCase.MovieType.POPULARITY_DESC -> {
-                                        if (!firstMovieInitialize) {
-                                            firstMovieInitialize = true
-                                            initialDetailFragment(value?.results?.first()?.id ?: 0)
+                    when {
+                        !it.isLoading -> {
+                            if (it.allMovies.isNotEmpty()) {
+                                it.allMovies.forEach { (key, value) ->
+                                    when (key) {
+                                        AllMoviesUseCase.MovieType.POPULARITY_DESC -> {
+                                            if (!firstMovieInitialize) {
+                                                firstMovieInitialize = true
+                                                initialDetailFragment(value?.results?.first()?.id ?: 0)
 
+                                            }
+                                            setRecyclerview(
+                                                binding.tvPopular,
+                                                binding.rvPopular,
+                                                MovieAdapterModel(getString(key.movieType), value)
+                                            )
                                         }
-                                        setRecyclerview(
-                                            binding.tvPopular,
-                                            binding.rvPopular,
-                                            MovieAdapterModel(getString(key.movieType), value)
-                                        )
-                                    }
 
-                                    AllMoviesUseCase.MovieType.REVENUE_DESC -> {
-                                        setRecyclerview(
-                                            binding.tvRevenue,
-                                            binding.rvRevenueMovies,
-                                            MovieAdapterModel(getString(key.movieType), value)
-                                        )
-                                    }
+                                        AllMoviesUseCase.MovieType.REVENUE_DESC -> {
+                                            setRecyclerview(
+                                                binding.tvRevenue,
+                                                binding.rvRevenueMovies,
+                                                MovieAdapterModel(getString(key.movieType), value)
+                                            )
+                                        }
 
-                                    AllMoviesUseCase.MovieType.PRIMARY_RELEASE_DATE_DESC -> {
-                                        setRecyclerview(
-                                            binding.tvPrimary,
-                                            binding.rvPrimary,
-                                            MovieAdapterModel(getString(key.movieType), value)
-                                        )
-                                    }
+                                        AllMoviesUseCase.MovieType.PRIMARY_RELEASE_DATE_DESC -> {
+                                            setRecyclerview(
+                                                binding.tvPrimary,
+                                                binding.rvPrimary,
+                                                MovieAdapterModel(getString(key.movieType), value)
+                                            )
+                                        }
 
-                                    AllMoviesUseCase.MovieType.VOTE_AVERAGE_DESC -> {
-                                        setRecyclerview(
-                                            binding.tvVote,
-                                            binding.rvVote,
-                                            MovieAdapterModel(getString(key.movieType), value)
-                                        )
+                                        AllMoviesUseCase.MovieType.VOTE_AVERAGE_DESC -> {
+                                            setRecyclerview(
+                                                binding.tvVote,
+                                                binding.rvVote,
+                                                MovieAdapterModel(getString(key.movieType), value)
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -131,8 +134,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     (recyclerView.adapter as MovieAdapter).itemCount >= (movieAdapterModel.results?.total_pages
                         ?: 0)
 
-                override fun isLastedPage() {}
-                override fun isNotLastedPage() {}
+                override fun isLastedPage() = Unit
+                override fun isNotLastedPage() = Unit
             })
         } else {
             movieAdapterModel.results?.results?.let {
@@ -142,6 +145,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
     }
+
     private fun setFragmentResult(movieId: Int) {
         requireActivity().supportFragmentManager.setFragmentResult(
             Constant.DetailDataListener.DETAIL_SCREEN,

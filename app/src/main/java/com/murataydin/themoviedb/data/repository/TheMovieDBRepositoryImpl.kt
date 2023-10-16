@@ -23,14 +23,14 @@ class TheMovieDBRepositoryImpl @Inject constructor(
     TheMovieDBRepository {
     override fun getDiscoverMovies(page: Int, sortBy: String): Flow<Resource<MovieResponse>> =
         callbackFlow {
-            theMovieDBStorageRepository.getMovies(page, sortBy).collect {
-                if (it.isNotEmpty()) {
+            theMovieDBStorageRepository.getMovies(page, sortBy).collect { data->
+                if (data.isNotEmpty()) {
                     trySend(
                         Resource.Success(
                             MovieResponse(
                                 page = page,
-                                total_pages = it.first().totalPage,
-                                results = it.toMovieEntities()
+                                total_pages = data.first().totalPage,
+                                results = data.toMovieEntities()
                             )
                         )
                     )
@@ -80,7 +80,8 @@ class TheMovieDBRepositoryImpl @Inject constructor(
         awaitClose { cancel() }
     }
 
-    override fun getMovieImageDetail(movieId: Int): Flow<Resource<MovieImageResponse>> = callbackFlow {
+    override fun getMovieImageDetail(movieId: Int): Flow<Resource<MovieImageResponse>> =
+        callbackFlow {
             try {
                 val response = theMovieDBDataSource.getMovieImageDetail(movieId)
                 if (response.isSuccessful) {

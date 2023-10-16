@@ -15,7 +15,6 @@ fun Fragment.resColor(@ColorRes colorRes: Int) =
     ResourcesCompat.getColor(resources, colorRes, null)
 
 
-
 fun Fragment.showFullPagePopup(
     @DrawableRes iconId: Int,
     title: String? = null,

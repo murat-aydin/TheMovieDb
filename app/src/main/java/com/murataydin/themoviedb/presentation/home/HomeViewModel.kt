@@ -2,8 +2,8 @@ package com.murataydin.themoviedb.presentation.home
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
-import com.murataydin.themoviedb.data.remote.model.MovieResponse
 import com.murataydin.themoviedb.R
+import com.murataydin.themoviedb.data.remote.model.MovieResponse
 import com.murataydin.themoviedb.domain.AllMoviesUseCase
 import com.murataydin.themoviedb.presentation.base.BaseViewModel
 import com.murataydin.themoviedb.presentation.base.IEffect

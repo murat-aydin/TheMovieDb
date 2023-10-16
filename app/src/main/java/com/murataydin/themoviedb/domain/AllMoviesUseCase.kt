@@ -1,7 +1,7 @@
 package com.murataydin.themoviedb.domain
 
-import com.murataydin.themoviedb.data.remote.model.MovieResponse
 import com.murataydin.themoviedb.R
+import com.murataydin.themoviedb.data.remote.model.MovieResponse
 import com.murataydin.themoviedb.domain.repository.TheMovieDBRepository
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
@@ -19,9 +19,7 @@ class AllMoviesUseCase @Inject constructor(
         primaryReleaseDateMoviesPage: Int,
         voteAverageMoviesPage: Int
     ): Flow<AllMoviesState> = callbackFlow {
-
         val hashMap: HashMap<MovieType, MovieResponse?> = hashMapOf()
-
         val getPopularityMovies = theMovieDBRepository.getDiscoverMovies(
             popularityMoviesPage,
             MovieType.POPULARITY_DESC.movieFilterDesc
