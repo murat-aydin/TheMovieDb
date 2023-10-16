@@ -28,6 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.murataydin.themoviedb.presentation.VideoPlayerActivity"
+            android:exported="true"
+            android:theme="@style/FullScreenTheme"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>
