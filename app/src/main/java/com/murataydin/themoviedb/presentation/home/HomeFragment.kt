@@ -1,15 +1,20 @@
 package com.murataydin.themoviedb.presentation.home
 
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.murataydin.themoviedb.common.extensions.isTablet
+import com.murataydin.themoviedb.common.extensions.visibleIf
 import com.murataydin.themoviedb.databinding.FragmentHomeBinding
 import com.murataydin.themoviedb.domain.AllMoviesUseCase
 import com.murataydin.themoviedb.presentation.base.BaseFragment
+import com.murataydin.themoviedb.presentation.common.Constant
 import com.murataydin.themoviedb.presentation.common.PaginationScrollListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -32,11 +37,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.effect.collect {
                     when (it) {
+                        is HomeEffect.GoToMovieDetail -> {
+                            if (requireActivity().isTablet()) {
+                                setFragmentResult(it.movieId)
+                            } else {
+                                findNavController().navigate(HomeFragmentDirections.homeToDetail(it.movieId))
+                            }
+                        }
                         is HomeEffect.ShowError -> {
                             handleError(it.throwable)
                         }
 
-                        else -> Unit
+
                     }
                 }
             }
@@ -55,6 +67,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                                     AllMoviesUseCase.MovieType.POPULARITY_DESC -> {
                                         if (!firstMovieInitialize) {
                                             firstMovieInitialize = true
+                                            initialDetailFragment(value?.results?.first()?.id ?: 0)
+
                                         }
                                         setRecyclerview(
                                             binding.tvPopular,
@@ -127,6 +141,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 )
             }
         }
+    }
+    private fun setFragmentResult(movieId: Int) {
+        requireActivity().supportFragmentManager.setFragmentResult(
+            Constant.DetailDataListener.DETAIL_SCREEN,
+            bundleOf(
+                Constant.DetailDataListener.DETAIL_MOVIE_ID to movieId
+            )
+        )
+    }
+
+    private fun initialDetailFragment(movieId: Int) {
+        binding.detailContainer.visibleIf(requireActivity().isTablet())
+        setFragmentResult(movieId)
     }
 
     override fun onClickMovie(movieId: Int) {
