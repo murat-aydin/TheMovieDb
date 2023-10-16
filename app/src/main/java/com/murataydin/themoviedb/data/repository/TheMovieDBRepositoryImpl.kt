@@ -3,6 +3,8 @@ package com.murataydin.themoviedb.data.repository
 import com.murataydin.themoviedb.data.mapper.toEntitiesMovie
 import com.murataydin.themoviedb.data.mapper.toMovieEntities
 import com.murataydin.themoviedb.data.remote.TheMovieDBDataSource
+import com.murataydin.themoviedb.data.remote.model.MovieDetailResponse
+import com.murataydin.themoviedb.data.remote.model.MovieImageResponse
 import com.murataydin.themoviedb.data.remote.model.MovieResponse
 import com.murataydin.themoviedb.data.remote.model.Resource
 import com.murataydin.themoviedb.domain.repository.TheMovieDBRepository
@@ -56,6 +58,42 @@ class TheMovieDBRepositoryImpl @Inject constructor(
                         trySend(Resource.Error(UnknownHostException()))
                     }
                 }
+            }
+            awaitClose { cancel() }
+        }
+
+    override fun getMovieDetail(movieId: Int): Flow<Resource<MovieDetailResponse>> = callbackFlow {
+        try {
+            val response = theMovieDBDataSource.getMovieDetail(movieId)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    trySend(Resource.Success(it))
+                } ?: kotlin.run {
+                    trySend(Resource.Fail(null))
+                }
+            } else {
+                trySend(Resource.Error(null))
+            }
+        } catch (ex: Exception) {
+            trySend(Resource.Error(UnknownHostException()))
+        }
+        awaitClose { cancel() }
+    }
+
+    override fun getMovieImageDetail(movieId: Int): Flow<Resource<MovieImageResponse>> = callbackFlow {
+            try {
+                val response = theMovieDBDataSource.getMovieImageDetail(movieId)
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        trySend(Resource.Success(it))
+                    } ?: kotlin.run {
+                        trySend(Resource.Fail(null))
+                    }
+                } else {
+                    trySend(Resource.Error(null))
+                }
+            } catch (ex: Exception) {
+                trySend(Resource.Error(UnknownHostException()))
             }
             awaitClose { cancel() }
         }
