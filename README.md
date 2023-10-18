@@ -17,19 +17,15 @@
    buildConfigField("String","API_TOKEN","You have to enter the token you got from TheMovieDB")
 
 
-
 ## Screenshots
 <table>
   <tr>
-    <td><img src="https://github.com/murat-aydin/TheMovieDb/assets/108257930/e32c915b-9221-412a-a166-83ce4873dc99" width="100%"></td>
-    <td><img src="https://github.com/murat-aydin/TheMovieDb/assets/108257930/96f43571-d180-4bf4-b58f-d38ed8c9dc53" width="100%"></td>
+    <td><img src="https://github.com/murat-aydin/TheMovieDb/assets/108257930/79c2e953-27d9-48bd-bd9f-fab74e91dabc" width="100%"></td>
+    <td><img src="https://github.com/murat-aydin/TheMovieDb/assets/108257930/15312d14-ac80-477f-a677-fd97fbcacbe6" width="100%"></td>
   </tr>  
   <tr>
-    <td><img src="https://github.com/murat-aydin/TheMovieDb/assets/108257930/a1ff86d9-f09b-4ebc-a237-386f3f339c54" width="100%"></td>
-    <td><img src="https://github.com/murat-aydin/TheMovieDb/assets/108257930/9306c303-fcf5-49d5-baea-37555e55bb88" width="100%"></td>
-
-
-
+    <td><img src="https://github.com/murat-aydin/TheMovieDb/assets/108257930/7c048aac-a38c-47e1-af03-d6b28b0779be" width="100%"></td>
+    <td><img src="https://github.com/murat-aydin/TheMovieDb/assets/108257930/c8ed1879-5864-408e-bbcf-312108ba38d0" width="100%"></td>
 
   </tr>  
 
